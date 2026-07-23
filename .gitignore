@@ -1,0 +1,41 @@
+# Environment / secrets — NEVER commit these
+.env
+*.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Data files — large, sensitive, or locally generated
+data/
+ICD-10-CM-CONVERSION-TABLE-FY2026.xlsx
+icd10cm-Code-Descriptions-2026.zip
+hcpc2026_jul_anweb_06172026/
+
+# macOS
+.DS_Store
+.localized
+__MACOSX/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log

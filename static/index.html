@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Keeler Prospect Agent — Sales Command Center</title>
+  <meta name="description" content="AI-powered ophthalmic prospect intelligence for Keeler USA and Accutome field sales."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ══ Sidebar ════════════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/>
+        <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/>
+        <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/>
+        <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/>
+        <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/>
+      </svg>
+    </div>
+    <span class="brand-name">SCC</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="nav-link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a class="nav-link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 1-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Prospects
+    </a>
+    <a class="nav-link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Favorites
+    </a>
+    <a class="nav-link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Recent
+    </a>
+    <div class="nav-divider"></div>
+    <a class="nav-link active" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Prospect Agent
+    </a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <a class="nav-link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      Settings
+    </a>
+  </div>
+</aside>
+
+<!-- ══ Main ══════════════════════════════════════════════════════════════ -->
+<div class="main-wrap">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-eyebrow">Keeler Prospect Agent</div>
+      <h1 class="topbar-title">Prospect Intelligence</h1>
+    </div>
+    <div class="topbar-right">
+      <button class="btn-ghost" id="newAnalysisBtn" onclick="resetApp()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        New Analysis
+      </button>
+      <div class="user-avatar" id="userAvatar">K</div>
+    </div>
+  </div>
+
+  <!-- Scroll container -->
+  <div class="scroll-body">
+
+    <!-- ── Input form ──────────────────────────────────────────────────── -->
+    <div class="form-panel" id="formPanel">
+      <div class="form-header">
+        <div class="form-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <div>
+          <div class="form-title">Research a Prospect</div>
+          <div class="form-sub">Enter practice details — the agent will look up NPI data, map the clinical workflow, and recommend Keeler/Accutome products.</div>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field-wrap field-wide">
+          <label class="field-label" for="practiceName">Practice / Organization Name <span class="req">*</span></label>
+          <input class="field-input" id="practiceName" type="text" placeholder="e.g. Wills Eye Hospital, ABC Retina Associates"/>
+        </div>
+        <div class="field-wrap">
+          <label class="field-label" for="npiNumber">NPI Number</label>
+          <input class="field-input" id="npiNumber" type="text" placeholder="10-digit NPI (optional)"/>
+        </div>
+        <div class="field-wrap">
+          <label class="field-label" for="location">City / State</label>
+          <input class="field-input" id="location" type="text" placeholder="e.g. Philadelphia, PA"/>
+        </div>
+        <div class="field-wrap">
+          <label class="field-label" for="website">Practice Website</label>
+          <input class="field-input" id="website" type="text" placeholder="https://..."/>
+        </div>
+        <div class="field-wrap">
+          <label class="field-label" for="specialty">Specialty Focus</label>
+          <select class="field-input field-select" id="specialty">
+            <option value="">Unknown / Let agent determine</option>
+            <option value="Comprehensive Ophthalmology">Comprehensive Ophthalmology</option>
+            <option value="Retina / Vitreoretinal">Retina / Vitreoretinal</option>
+            <option value="Glaucoma">Glaucoma</option>
+            <option value="Anterior Segment / Cataract">Anterior Segment / Cataract</option>
+            <option value="Cornea">Cornea</option>
+            <option value="Oculoplastics / Adnexa">Oculoplastics / Adnexa</option>
+            <option value="Pediatric Ophthalmology">Pediatric Ophthalmology</option>
+            <option value="Optometry (OD)">Optometry (OD)</option>
+            <option value="Ambulatory Surgery Center (ASC)">Ambulatory Surgery Center (ASC)</option>
+            <option value="Hospital / Health System">Hospital / Health System</option>
+            <option value="Multi-Specialty Group">Multi-Specialty Group</option>
+          </select>
+        </div>
+        <div class="field-wrap field-wide">
+          <label class="field-label" for="notes">Rep Notes</label>
+          <textarea class="field-input field-textarea" id="notes" rows="2" placeholder="Anything you already know — products they currently use, upcoming expansion, referral source..."></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <div class="example-chips">
+          <span class="chip" onclick="quickFill('Wills Eye Hospital','Philadelphia, PA','')">Wills Eye Hospital</span>
+          <span class="chip" onclick="quickFill('Bascom Palmer Eye Institute','Miami, FL','Retina / Vitreoretinal')">Bascom Palmer</span>
+          <span class="chip" onclick="quickFill('Eye Care Partners','St. Louis, MO','')">Eye Care Partners</span>
+          <span class="chip" onclick="quickFill('Elman Retina Group','Baltimore, MD','Retina / Vitreoretinal')">Elman Retina Group</span>
+        </div>
+        <button class="btn-analyze" id="analyzeBtn" onclick="startAnalysis()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Analyze Prospect
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Loading state ───────────────────────────────────────────────── -->
+    <div class="loading-panel" id="loadingPanel" style="display:none">
+      <div class="loading-orb">
+        <div class="orb-ring orb-ring-1"></div>
+        <div class="orb-ring orb-ring-2"></div>
+        <div class="orb-ring orb-ring-3"></div>
+        <div class="orb-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+        </div>
+      </div>
+      <div class="loading-title" id="loadingTitle">Initializing...</div>
+      <div class="loading-steps" id="loadingSteps">
+        <div class="lstep" id="lstep1"><div class="lstep-dot"></div><span>NPI Registry lookup</span></div>
+        <div class="lstep" id="lstep2"><div class="lstep-dot"></div><span>Loading ICD-10 / HCPCS context</span></div>
+        <div class="lstep" id="lstep3"><div class="lstep-dot"></div><span>Fetching Keeler / Accutome catalog</span></div>
+        <div class="lstep" id="lstep4"><div class="lstep-dot"></div><span>Claude AI — web research &amp; clinical mapping</span></div>
+      </div>
+    </div>
+
+    <!-- ── Error bar ───────────────────────────────────────────────────── -->
+    <div class="error-bar" id="errorBar" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+      <span id="errorMsg">Error</span>
+    </div>
+
+    <!-- ── Results ─────────────────────────────────────────────────────── -->
+    <div id="resultsPanel" style="display:none">
+
+      <!-- Results header -->
+      <div class="results-header">
+        <div>
+          <div class="results-name" id="rName">—</div>
+          <div class="results-meta" id="rMeta">—</div>
+        </div>
+        <div class="results-badges">
+          <div class="confidence-badge" id="confidenceBadge">—</div>
+          <div class="npi-badge" id="npiBadge" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            NPI Verified
+          </div>
+        </div>
+      </div>
+
+      <!-- H — Next Best Action hero card -->
+      <div class="nba-card" id="nbaCard">
+        <div class="nba-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Next Best Action
+        </div>
+        <div class="nba-action" id="nbaAction">—</div>
+        <div class="nba-detail" id="nbaDetail"></div>
+      </div>
+
+      <!-- Section tab bar -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="tabA" onclick="switchTab('tabA',this)">A &mdash; Snapshot</button>
+        <button class="tab-btn" data-tab="tabB" onclick="switchTab('tabB',this)">B &mdash; Workflow</button>
+        <button class="tab-btn" data-tab="tabC" onclick="switchTab('tabC',this)">C &mdash; Product Fit</button>
+        <button class="tab-btn" data-tab="tabD" onclick="switchTab('tabD',this)">D &mdash; Coding</button>
+        <button class="tab-btn" data-tab="tabE" onclick="switchTab('tabE',this)">E &mdash; Reorder</button>
+        <button class="tab-btn" data-tab="tabF" onclick="switchTab('tabF',this)">F &mdash; Cross-Sell</button>
+        <button class="tab-btn" data-tab="tabG" onclick="switchTab('tabG',this)">G &mdash; Intelligence</button>
+      </div>
+
+      <!-- ── Tab A: Practice Snapshot ──────────────────────────────────── -->
+      <div class="tab-content active" id="tabA">
+        <div class="section-grid-2">
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon icon-purple">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Practice Profile</div>
+                <div class="card-sub">Confirmed public data + NPI registry</div>
+              </div>
+            </div>
+            <div class="profile-stats" id="profileStats"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon icon-teal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Buying Signals</div>
+                <div class="card-sub">Signals found in public data</div>
+              </div>
+            </div>
+            <ul class="signal-list" id="signalList"></ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head-simple">
+            <div class="card-title">Publicly Visible Services</div>
+          </div>
+          <div class="service-chips" id="serviceChips"></div>
+        </div>
+      </div>
+
+      <!-- ── Tab B: Clinical Workflow ───────────────────────────────────── -->
+      <div class="tab-content" id="tabB">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-icon icon-blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div>
+              <div class="card-title">Clinical Workflow Map</div>
+              <div class="card-sub" id="workflowSummary"></div>
+            </div>
+          </div>
+          <div class="workflow-steps" id="workflowSteps"></div>
+        </div>
+      </div>
+
+      <!-- ── Tab C: Product Fit Map ─────────────────────────────────────── -->
+      <div class="tab-content" id="tabC">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-icon icon-violet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>
+            <div>
+              <div class="card-title">Product Fit by Workflow Stage</div>
+              <div class="card-sub">Keeler and Accutome products mapped to each clinical touchpoint</div>
+            </div>
+          </div>
+          <div class="product-stages" id="productStages"></div>
+        </div>
+      </div>
+
+      <!-- ── Tab D: Coding Context ──────────────────────────────────────── -->
+      <div class="tab-content" id="tabD">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-icon icon-amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div>
+              <div class="card-title">Clinical Coding Context</div>
+              <div class="card-sub">CPT, HCPCS, and ICD-10 codes this practice likely uses — translated for sales</div>
+            </div>
+          </div>
+          <table class="code-table">
+            <thead><tr><th>Type</th><th>Code</th><th>Description</th><th>Sales Meaning</th></tr></thead>
+            <tbody id="codeTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── Tab E: Reorder Logic ───────────────────────────────────────── -->
+      <div class="tab-content" id="tabE">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-icon icon-green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            </div>
+            <div>
+              <div class="card-title">Reorder &amp; Consumable Logic</div>
+              <div class="card-sub">Products classified by purchase cycle — plan your cadence</div>
+            </div>
+          </div>
+          <div class="reorder-list" id="reorderList"></div>
+        </div>
+      </div>
+
+      <!-- ── Tab F: Cross-Sell ──────────────────────────────────────────── -->
+      <div class="tab-content" id="tabF">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-icon icon-rose">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div>
+              <div class="card-title">Cross-Sell Opportunities</div>
+              <div class="card-sub">Anchor products → adjacent recommendations</div>
+            </div>
+          </div>
+          <div class="crosssell-list" id="crosssellList"></div>
+        </div>
+      </div>
+
+      <!-- ── Tab G: Opportunity Intelligence ───────────────────────────── -->
+      <div class="tab-content" id="tabG">
+        <div class="section-grid-2">
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon icon-indigo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Why This Account Fits</div>
+              </div>
+            </div>
+            <div class="why-fit" id="whyFit"></div>
+            <div class="top-opps" id="topOpps"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon icon-cyan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Data Quality &amp; Confidence</div>
+              </div>
+            </div>
+            <div class="confidence-detail" id="confidenceDetail"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /resultsPanel -->
+
+    <!-- Disclaimer -->
+    <div class="disclaimer" id="disclaimer" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Analysis based on publicly available data and AI inference. Verify details before outreach. ICD-10 FY2026 · HCPCS CMS Jul 2026.
+    </div>
+
+  </div><!-- /scroll-body -->
+</div><!-- /main-wrap -->
+
+<script src="app.js"></script>
+</body>
+</html>
