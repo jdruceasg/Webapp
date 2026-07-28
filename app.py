@@ -595,21 +595,23 @@ def analyze():
                     print(f"[analyze]   block[{i}] type={blk.type}", flush=True)
                 raise ValueError("Claude returned no text. Check [analyze] logs above.")
 
-            result_text = result_text.strip()
-            if result_text.startswith("```"):
-                lines = result_text.split("\n")
-                lines = [l for l in lines if not l.startswith("```")]
-                result_text = "\n".join(lines).strip()
+            # Extract JSON — find outermost { } regardless of surrounding prose or fences
+            json_start = result_text.find("{")
+            json_end   = result_text.rfind("}")
+            if json_start == -1 or json_end <= json_start:
+                print(f"[analyze] No JSON braces found. First 300 chars: {result_text[:300]!r}", flush=True)
+                raise ValueError("Claude response contained no JSON object.")
 
-            if not result_text:
-                raise ValueError("Claude returned only whitespace/fences.")
+            candidate = result_text[json_start:json_end + 1]
+            print(f"[analyze] JSON candidate: {len(candidate)} chars, starts={candidate[:80]!r}", flush=True)
 
-            parsed = json.loads(result_text)
+            parsed = json.loads(candidate)
             parsed.setdefault("meta", {})
             parsed["meta"]["analyzed_by"] = username
             parsed["meta"]["npi_verified"] = bool(npi_data.get("found"))
 
             yield f"data: {json.dumps({'type':'result','data':parsed})}\n\n"
+
 
         except json.JSONDecodeError as e:
             msg = f"Agent returned non-JSON response: {str(e)}"
